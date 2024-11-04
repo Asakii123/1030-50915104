@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mo.js 動畫</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            padding-top: 56px;
+        }
+        /* 特效區域的樣式 */
+        #effect-window {
+            width: 300px;
+            height: 300px;
+            border: 2px solid #333;
+            position: relative;
+            overflow: hidden;
+            cursor: crosshair;
+            background-color: #fff;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar 位置 -->
+    <div id="navbar-placeholder"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@mojs/core"></script>
+    <div class="container mt-3">
+        <h2>Mo.js 動畫效果</h2>
+        <p><a href="https://mojs.github.io/" target="_blank">Mo.js 官網</a></p>
+
+        <h3>範例程式碼</h3>
+        <pre><code>
+            &lt;div id="effect-window"&gt;&lt;/div&gt;
+      
+            &lt;script&gt;
+            // 初始化 Mo.js 的爆炸效果
+            const burst = new mojs.Burst({
+            radius: { 20: 80 },           // 爆炸半徑範圍
+            count: 10,                    // 爆炸的粒子數量
+            children: {
+                shape: 'circle',          // 粒子的形狀
+                radius: { 5: 0 },         // 粒子半徑的變化
+                scale: { 1: 0 },          // 粒子的縮放效果
+                duration: 1000,           // 動畫持續時間
+                easing: 'cubic.out',      // 動畫緩動效果
+                stroke: '#ff6347',        // 粒子的顏色
+                strokeWidth: { 2: 0 },    // 粒子的邊框寬度
+            }
+            });
+
+            // 只在 effect-window 區域內觸發點擊事件
+            document.getElementById('effect-window').addEventListener('click', function (e) {
+            // 計算相對於 effect-window 的點擊位置
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left-650;  // 將座標轉換為相對位置
+            const y = e.clientY - rect.top+430;
+
+            // 設置爆炸效果的位置並播放動畫
+            burst
+                .tune({ x, y }) // 設定爆炸效果在視窗內的相對位置
+                .replay();       // 播放動畫
+            });
+            &lt;/script&gt;
+        </code></pre>
+
+        <h3>效果展示</h3>
+        <div id="effect-window"></div>
+      
+        <script>
+        // 初始化 Mo.js 的爆炸效果
+        const burst = new mojs.Burst({
+            radius: { 20: 80 },           // 爆炸半徑範圍
+            count: 10,                    // 爆炸的粒子數量
+            children: {
+                shape: 'circle',          // 粒子的形狀
+                radius: { 5: 0 },         // 粒子半徑的變化
+                scale: { 1: 0 },          // 粒子的縮放效果
+                duration: 1000,           // 動畫持續時間
+                easing: 'cubic.out',      // 動畫緩動效果
+                stroke: '#ff6347',        // 粒子的顏色
+                strokeWidth: { 2: 0 },    // 粒子的邊框寬度
+            }
+        });
+
+        // 只在 effect-window 區域內觸發點擊事件
+        document.getElementById('effect-window').addEventListener('click', function (e) {
+            // 計算相對於 effect-window 的點擊位置
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left-650;  // 將座標轉換為相對位置
+            const y = e.clientY - rect.top+430;
+
+            // 設置爆炸效果的位置並播放動畫
+            burst
+                .tune({ x, y }) // 設定爆炸效果在視窗內的相對位置
+                .replay();       // 播放動畫
+        });
+        </script>
+    
+    </div>
+    <div class="mt-5"></div>
+    <script src="navbar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
